@@ -1,0 +1,30 @@
+File Access and I/O Investigation Report
+Date: 2026-07-03
+User: kkmp
+
+1. Open Files (lsof Output):
+Ran 'lsof -u kkmp' to see open files associated with my user. It listed:
+- Shared system libraries (.dylib files) used by running processes.
+- Active system processes and helper agents (like loginwindow).
+- User preferences, caches, and local configurations.
+
+2. Process File Descriptors (FD):
+Inspecting /dev/fd showed standard streams for my active shell:
+- FD 0 (stdin): Standard Input (read access), connected to my keyboard/terminal interface.
+- FD 1 (stdout): Standard Output (write access), prints program output to the terminal screen.
+- FD 2 (stderr): Standard Error (write access), prints error output to the terminal screen.
+
+3. Redirection Tests:
+- Output redirection ('command > stdout.log 2> stderr.log'): The standard output was written to 'stdout.log'. 'stderr.log' stayed empty because the command ran without errors.
+- Error redirection ('command > stdout.log 2> stderr.log' on a invalid file): Standard error caught the error message and saved it to 'stderr.log'. 'stdout.log' was left empty.
+
+4. System Resource Limits (ulimit -a):
+Key resource limits set for the shell environment:
+- Max open file descriptors (-n): 1048575
+- Max user processes (-u): 2666
+- File size limit (-f): Unlimited
+
+5. How Linux Manages File I/O:
+- Linux treats everything as a file (hardware devices, folders, sockets, and standard inputs/outputs).
+- Processes refer to these using small integers called File Descriptors.
+- When we redirect streams using '>' or '2>', the shell changes which file descriptor points to which target file. This lets us capture outputs and errors into logs easily.

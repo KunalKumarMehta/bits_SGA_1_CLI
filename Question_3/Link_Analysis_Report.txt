@@ -1,0 +1,24 @@
+File System and Link Analysis Report
+Date: 2026-07-03
+User: kkmp
+
+1. Inode Numbers Recorded:
+- original.txt:  27242942 (Link count: 2)
+- hard_link.txt: 27242942 (Link count: 2)
+- sym_link.txt:  27242993 (Link count: 1) -> points to "original.txt"
+
+2. File Metadata (stat -x Output):
+- original.txt and hard_link.txt share the same inode number (27242942), file size (18 bytes), and permissions (0644). They are both pointers to the same data on disk.
+- sym_link.txt has a unique inode number (27242993) and size (12 bytes, matching the length of the string "original.txt"). Its permissions are set to 755.
+
+3. Difference Between Hard Links and Symbolic Links:
+- Hard Link: It is a direct pointer to the inode of a file. It shares the same inode number as the original, cannot span different filesystems, and cannot link to directories.
+- Symbolic (Soft) Link: It is a separate file that stores the text path of another file. It has its own inode number, can span across different filesystems, and can link to directories.
+
+4. Effect of Deleting the Original File (original.txt):
+- Reading the hard link ('cat hard_link.txt') still worked and returned "Hello Linux Links". Deleting the original file only reduced the inode link count from 2 to 1. The data is still accessible because a hard link to it remains.
+- Reading the symbolic link ('cat sym_link.txt') failed with a "No such file or directory" error. The link broke because the target path "original.txt" it was pointing to was deleted.
+
+5. Key Takeaways:
+- File names are just pointers to inodes. The data block remains on the disk as long as at least one hard link points to its inode.
+- Symbolic links are just path shortcuts and do not protect the source data from deletion. If the original file is deleted, renamed, or moved, the symbolic link breaks.

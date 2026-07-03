@@ -1,0 +1,32 @@
+Secure Project Workspace Setup Report
+Date: 2026-07-03
+User: kkmp
+
+1. Directory Structure Created:
+secure_workspace/
+└── project_data/
+    └── confidential.txt
+
+2. File Permissions (Before vs. After):
+- secure_workspace/
+  Before: drwxr-xr-x (755)
+  After:  drwx------ (700)
+- secure_workspace/project_data/
+  Before: drwxr-xr-x (755)
+  After:  drwx------ (700)
+- secure_workspace/project_data/confidential.txt
+  Before: -rw-r--r-- (644)
+  After:  -rw------- (600)
+
+3. File Ownership:
+Owner User: kkmp
+Owner Group: staff
+All directories and files are owned by my user 'kkmp'.
+
+4. Umask Settings:
+Current Umask: 0022
+This umask means new directories get created as 755 (drwxr-xr-x) and files as 644 (-rw-r--r--) by default.
+
+5. How the Permissions Secure the Data:
+- Setting the directories to 700 ensures that only my user can enter the folders, read their contents, or create files inside them. All other users are blocked.
+- Setting the confidential.txt file to 600 makes sure that even if someone gets into the workspace directory, they cannot read or write to the file. This keeps sensitive files completely private.

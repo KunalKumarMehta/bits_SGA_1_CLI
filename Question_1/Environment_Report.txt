@@ -1,0 +1,27 @@
+Linux Environment Verification Report
+Date: 2026-07-03
+User: kkmp
+
+1. Username and Associated Groups:
+User ID: uid=501(kkmp)
+Primary Group: gid=20(staff)
+Other key groups: admin, everyone, localaccounts, _developer
+
+2. Current Shell:
+Shell: /bin/zsh (Z Shell)
+
+3. Current Working Directory:
+Path: /Users/kkmp/Desktop/bits/bits_SGA_1_CLI
+
+4. Workspace Files and Directories:
+- Question_1/
+- Question_2/
+- Question_3/
+- Question_4/
+- Question_5/
+- secure_workspace/
+
+5. Network Connectivity:
+Target Host: google.com
+Packets: 3 sent, 3 received (0% packet loss)
+Status: Internet connection is active and working.

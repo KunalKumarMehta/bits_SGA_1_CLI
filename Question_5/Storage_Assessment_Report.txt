@@ -1,0 +1,27 @@
+Storage Health Assessment Report
+Date: 2026-07-03
+User: kkmp
+
+1. Storage Devices and Active Mounts:
+- /dev/disk3s1s1: Sealed system root volume, mounted at / (apfs, read-only)
+- /dev/disk3s5: Main data volume for user files, mounted at /System/Volumes/Data (apfs, read-write)
+- /dev/disk3s6: VM swap space, mounted at /System/Volumes/VM
+- devfs: Device nodes filesystem, mounted at /dev
+
+2. Disk Space Usage (df -h):
+- Main Data Partition (/dev/disk3s5): 228 Gi total size, 130 Gi used, 73 Gi available (65% capacity used).
+- Root Partition (/dev/disk3s1s1): 228 Gi total size, 12 Gi used, 73 Gi available (14% capacity used).
+
+3. Inode Usage (df -i):
+- Main Data Partition (/dev/disk3s5): 1,301,407 inodes used, 764,203,960 free (0% used).
+- Root Partition (/dev/disk3s1s1): 480,292 inodes used, 764,203,960 free (0% used).
+
+4. Observations:
+- Space usage is healthy. The main data volume is at 65%, which is well below the warning limit (usually 80-85%).
+- Inode utilization is near 0%. APFS dynamic inode allocation makes running out of inodes extremely unlikely.
+- The system root is mounted as read-only, which secures critical system directories from accidental edits.
+
+5. Recommendations:
+- Set up a cron job to auto-delete old log files and application caches to save disk space.
+- Write a monitoring shell script to alert me if storage usage goes over 85%.
+- Move old, archived workspaces and static backups off to cloud storage or an external drive.
